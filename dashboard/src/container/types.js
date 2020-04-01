@@ -1,0 +1,1 @@
+export const GET_MACHINE_DATA = 'GET_MACHINE_DATA'
