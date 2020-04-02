@@ -1,32 +1,36 @@
 import React, {useEffect} from "react";
 import {connect} from 'react-redux'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {getMachineData} from "../container/actions/machineDataAction";
+import SidePanel from "./global/SidePanel";
+import MachinePanel from "./global/MachinePanel";
+import Loading from "./global/Loading";
 
 const Routing = (props) => {
     useEffect(() => {
         props.getMachineData()
     }, []);
 
+
     if (props.machineData) {
         return (
             <Router>
                 <div id="dashboard">
+                    <SidePanel machineData={props.machineData}/>
                     <Switch>
-                        <Route>
-
-                        </Route>
+                        {props.machineData.map((machine, index) => {
+                            return (
+                                <Route exact path={`/${machine.name}`} key={machine.name}>
+                                    <MachinePanel machine={machine}/>
+                                </Route>
+                            )
+                        })}
                     </Switch>
                 </div>
             </Router>
         )
     } else {
-        return <h1>Loading...</h1>
+        return <Loading/>
 
     }
 

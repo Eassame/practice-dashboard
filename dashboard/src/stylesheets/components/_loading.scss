@@ -1,0 +1,36 @@
+.loadingSpinnerComponent{
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.loadingSpinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+  &:before, &:after {
+    content: "";
+    position: relative;
+    display: block;
+  }
+  &:before {
+    animation: spinner 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+    width: 30px;
+    height: 30px;
+    background-color: $pink;
+    margin: 0 auto;
+  }
+  &:after {
+    animation: shadow 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
+    bottom: -20px;
+    height: 5px;
+    border-radius: 50%;
+    max-width: 60px;
+    margin: 0 auto;
+    background-color: rgba(#000,0.2);
+  }
+}

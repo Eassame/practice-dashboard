@@ -1,4 +1,4 @@
-import {GET_MACHINE_DATA} from '../types'
+import {GET_MACHINE_DATA, SET_CURRENT_PAGE} from '../types'
 
 
 export default (state = {}, {type, payload}) => {
@@ -7,6 +7,11 @@ export default (state = {}, {type, payload}) => {
             return {
                 ...state,
                 machineData: payload
+            }
+        case SET_CURRENT_PAGE:
+            return {
+                ...state,
+                currentPage: payload
             }
         default:
             return {

@@ -1,0 +1,38 @@
+$sidePanelWidth: 175px;
+
+.SidePanelComponent{
+  height: 100%;
+  width: $sidePanelWidth;
+  background-color: $pink;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  padding: 20px 0 20px 20px;
+  .SidePanel{
+    height: 100%;
+    overflow-y: scroll;
+    p{
+      font-size: 16px;
+      padding: 10px 0 10px 10px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      &.current{
+        background-color: $hoverColorLightPink;
+        color: $lightOrange;
+      }
+      &:hover{
+        background-color: $hoverColorLightPink;
+      }
+    }
+  }
+}
+
+.machinePanelComponent{
+  width: calc(100% - #{$sidePanelWidth});
+  padding: 30px;
+  .machinePanel{
+    h1{
+      padding: 0 0 10px;
+      border-bottom: 1px solid $grey;
+    }
+  }
+
+}
