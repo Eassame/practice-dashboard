@@ -1,17 +1,32 @@
-import {GET_MACHINE_DATA, SET_CURRENT_PAGE} from '../types'
+import {GET_CPU_DATA, GET_MACHINE_DATA, GET_MEMORY_DATA, SET_CURRENT_PAGE} from '../types'
+import {cpuApiCall, machines, memoryApiCall} from './fakeData' //just to get fake data
 
 
-const fakeData = Array.from({ length: 20 }, (element, index) => (
-    {name: `machine_${index}`, machine: `machine_${index*2}${index*3}${index*4}`}
-    ))
+export const getMemoryUsage = (machine) => async dispatch => {
+    const response = await memoryApiCall(machine)
+    //would be:
+    // axios.get('/')
+    // .then(result => // dispatch here)
+    // .catch(e => { //handleError})
+    dispatch({
+        type: GET_MEMORY_DATA,
+        payload: response
+    });
+}
+
+export const getCpuUsage = (machine) => async dispatch => {
+    const response = await cpuApiCall(machine)
+    dispatch({
+        type: GET_CPU_DATA,
+        payload: response
+    });
+}
 
 export const getMachineData = () => dispatch => {
-    setTimeout(()=>{
-        dispatch({
-            type: GET_MACHINE_DATA,
-            payload: fakeData
-        });
-    },4000)
+    dispatch({
+        type: GET_MACHINE_DATA,
+        payload: machines
+    })
 };
 
 

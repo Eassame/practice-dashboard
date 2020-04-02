@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from 'react-redux'
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import {getMachineData} from "../container/actions/machineDataAction";
 import SidePanel from "./global/SidePanel";
 import MachinePanel from "./global/MachinePanel";
@@ -21,10 +21,11 @@ const Routing = (props) => {
                         {props.machineData.map((machine, index) => {
                             return (
                                 <Route exact path={`/${machine.name}`} key={machine.name}>
-                                    <MachinePanel machine={machine}/>
+                                    <MachinePanel machineName={machine.name}/>
                                 </Route>
                             )
                         })}
+                        <Route render={() => <Redirect to={`/${props.machineData[0].name}`}/>} />
                     </Switch>
                 </div>
             </Router>
