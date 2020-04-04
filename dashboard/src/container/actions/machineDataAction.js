@@ -23,10 +23,12 @@ export const getCpuUsage = (machine) => async dispatch => {
 }
 
 export const getMachineData = () => dispatch => {
-    dispatch({
-        type: GET_MACHINE_DATA,
-        payload: machines
-    })
+    setTimeout(()=>{
+        dispatch({
+            type: GET_MACHINE_DATA,
+            payload: machines
+        })
+    }, 2000)
 };
 
 

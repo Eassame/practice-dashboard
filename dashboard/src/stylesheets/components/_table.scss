@@ -1,0 +1,54 @@
+.tableComponent{
+  margin-top: 20px;
+  > ul.tableHeaders{
+    @include flexbox;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    li{
+      padding: 5px 0;
+      height: 40px;
+
+      > div{
+        @include flexbox;
+        align-items: center;
+        height: 100%;
+
+        i {
+          color: $lightPink;
+          margin-left: 10px;
+        }
+
+        &.active{
+          &,i{
+            color: $darkOrange;
+          }
+        }
+        &:hover {
+          &,i{
+            color: $lightOrange;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  > div.tableData{
+    @include flexbox;
+    flex-direction: column;
+    ul{
+      @include flexbox;
+      border-bottom: 1px solid black;
+      li{
+        padding: 5px 0;
+        height: 40px;
+
+        > div{
+          @include flexbox;
+          align-items: center;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

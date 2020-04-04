@@ -1,86 +1,81 @@
-import React, {useState, useEffect} from 'react'
-import {updateCurrentPage, getMemoryUsage, getCpuUsage} from "../../container/actions/machineDataAction";
-import { connect } from 'react-redux'
+import React, {useEffect} from 'react'
+import {getCpuUsage, getMemoryUsage, updateCurrentPage} from "../../container/actions/machineDataAction";
+import {connect} from 'react-redux'
 import Table from "./Table";
+import moment from "moment";
 
 const MachinePanel = props => {
     let ConstantCallTimeOut;
 
-    useEffect(()=>{
+    useEffect(() => {
         props.updateCurrentPage(props.machineName);
         constantCalls()
-        // props.getCpuUsage(props.machine.name)
 
-        return ()=>{
+        return () => {
             clearTimeout(ConstantCallTimeOut)
         }
-    },[])
+    }, [])
 
 
     const constantCalls = () => {
         props.getMemoryUsage(props.machineName);
-        ConstantCallTimeOut = setTimeout(()=>{
+        props.getCpuUsage(props.machineName);
+        ConstantCallTimeOut = setTimeout(() => {
             constantCalls()
-        }, 500)
+        }, 300)
     }
 
     const dataForTable = [
         {
             columnKey: 'name',
             columnHeader: 'Name',
-            formatData: (currentData, currentObject)=>{
-                return currentData
-            }
+            sortColumn: true
         },
         {
             columnKey: 'node',
             columnHeader: 'Node',
-            formatData: (currentData, currentObject)=>{
-                return currentData
-            }
+            sortColumn: true
         },
         {
             columnKey: 'status',
             columnHeader: 'Status',
-            formatData: (currentData, currentObject)=>{
-                return currentData
-            }
+            sortColumn: true
         },
         {
             columnKey: 'restarts',
             columnHeader: 'Restarts',
-            formatData: (currentData, currentObject)=>{
-                return currentData
-            }
+            sortColumn: true
         },
         {
             columnKey: 'age',
             columnHeader: 'Age',
-            formatData: (currentData, currentObject)=>{
-                return currentData
+            sortColumn: true,
+            formatData: currentData => {
+                return moment(currentData).fromNow(true)
             }
         },
         {
             columnKey: 'cpu',
             columnHeader: 'CPU',
-            formatData: (currentData, currentObject)=>{
-                return currentData
+            formatData: currentData => {
+                return Math.ceil(currentData * 100) / 100
             }
         },
         {
             columnKey: 'memory',
             columnHeader: 'Memory',
-            formatData: (currentData, currentObject)=>{
-                return currentData
-            }
         }
     ]
 
     return (
         <div className="machinePanelComponent">
             <div className="machinePanel">
-                <h1>{props.machineName}</h1>
-                <Table data={props.machineData.find(x => x.name === props.machineName).pods} tableKeys={dataForTable}/>
+                <h1><i className="fas fa-server"></i> {props.machineName}</h1>
+                <Table
+                    data={props.machineData.find(x => x.name === props.machineName).pods}
+                    tableKeys={dataForTable}
+                    autoWidth
+                />
             </div>
         </div>
     )

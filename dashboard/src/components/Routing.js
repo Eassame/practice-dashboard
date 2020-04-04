@@ -20,9 +20,11 @@ const Routing = (props) => {
                     <Switch>
                         {props.machineData.map((machine, index) => {
                             return (
-                                <Route exact path={`/${machine.name}`} key={machine.name}>
-                                    <MachinePanel machineName={machine.name}/>
-                                </Route>
+                                <Route exact path={`/${machine.name}`} key={machine.name}
+                                       render={renderProps =>
+                                           <MachinePanel {...renderProps} machineName={machine.name}/>
+                                       }
+                                />
                             )
                         })}
                         <Route render={() => <Redirect to={`/${props.machineData[0].name}`}/>} />

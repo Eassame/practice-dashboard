@@ -13,12 +13,3 @@
   display: -webkit-flex;
   display: flex;
 }
-
-.flexbox{
-  @include flexbox;
-  justify-content: space-between;
-}
-
-.down{
-  flex-direction: column;
-}

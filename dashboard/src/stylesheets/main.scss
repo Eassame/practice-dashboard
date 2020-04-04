@@ -1,9 +1,10 @@
 @import "global/colors.scss";
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
 @import "global/keyframes.scss";
-@import "components/loading.scss";
 @import "global/helperStyles.scss";
+@import "components/loading.scss";
 @import "components/panels.scss";
+@import "components/table.scss";
 
 
 *{
@@ -15,6 +16,10 @@
   text-decoration: none;
   font-family: 'Roboto Condensed', sans-serif;
   color: $darkGrey;
+}
+
+html{
+  background-color: #fbfbfc;
 }
 
 body{
