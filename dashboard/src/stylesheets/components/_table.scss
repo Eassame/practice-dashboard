@@ -18,13 +18,19 @@
           margin-left: 10px;
         }
 
+        &,i{
+          transition: color 0.1s ease-in;
+        }
+
         &.active{
           &,i{
+            transition: color 0.1s ease-in;
             color: $darkOrange;
           }
         }
         &:hover {
           &,i{
+            transition: color 0.1s ease-in;
             color: $lightOrange;
             cursor: pointer;
           }

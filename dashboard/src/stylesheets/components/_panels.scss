@@ -40,6 +40,11 @@ $sidePanelWidth: 250px;
         margin-right: 10px;
       }
     }
+
+    .charts{
+      @include flexbox;
+      justify-content: space-between;
+    }
   }
 
 }

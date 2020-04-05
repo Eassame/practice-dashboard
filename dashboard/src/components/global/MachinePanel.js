@@ -3,8 +3,13 @@ import {getCpuUsage, getMemoryUsage, updateCurrentPage} from "../../container/ac
 import {connect} from 'react-redux'
 import Table from "./Table";
 import moment from "moment";
+import DataChart from "./Chart";
+import {useChartData} from "../../hooks/machineHooks";
 
 const MachinePanel = props => {
+    const cpuChartArray = useChartData(props.cpu, 'cpu');
+    const memoryChartArray = useChartData(props.memory, 'memory');
+
     let ConstantCallTimeOut;
 
     useEffect(() => {
@@ -16,13 +21,14 @@ const MachinePanel = props => {
         }
     }, [])
 
+    const pods = props.machineData.find(x => x.name === props.machineName).pods
 
     const constantCalls = () => {
         props.getMemoryUsage(props.machineName);
         props.getCpuUsage(props.machineName);
         ConstantCallTimeOut = setTimeout(() => {
             constantCalls()
-        }, 300)
+        }, 1000)
     }
 
     const dataForTable = [
@@ -67,12 +73,32 @@ const MachinePanel = props => {
         }
     ]
 
+
+    const dataForCpuTable = cpuChartArray.map((cpuTotal) => {
+        return ({
+            name: moment(cpuTotal.time).format('HH:mm:ss'),
+            uv: cpuTotal.value
+        })
+    })
+
+    const dataForMemoryTable = memoryChartArray.map((memoryTotal) => {
+        return ({
+            name: moment(memoryTotal.time).format('HH:mm:ss'),
+            uv: memoryTotal.value
+        })
+    })
+
+
     return (
         <div className="machinePanelComponent">
             <div className="machinePanel">
                 <h1><i className="fas fa-server"></i> {props.machineName}</h1>
+                <div className='charts'>
+                    <DataChart data={dataForCpuTable} width={300} height={200}/>
+                    <DataChart data={dataForMemoryTable} width={300} height={200}/>
+                </div>
                 <Table
-                    data={props.machineData.find(x => x.name === props.machineName).pods}
+                    data={pods}
                     tableKeys={dataForTable}
                     autoWidth
                 />
@@ -82,7 +108,9 @@ const MachinePanel = props => {
 }
 
 const mapStateToProps = state => ({
-    machineData: state.machineData
+    machineData: state.machineData,
+    memory: state.memory,
+    cpu: state.cpu
 })
 
 const mapDispatchToProps = dispatch => ({

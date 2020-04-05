@@ -5,8 +5,8 @@ const Table = (props) => {
 
     const dataFromColumnKey = (obj, key) => {
         const splitKey = key.split('.')
-        const finalVal = splitKey.reduce((currentVal, accumulator) => {
-            return obj[accumulator]
+        const finalVal = splitKey.reduce((accumulator, currentVal) => {
+            return accumulator[currentVal]
         }, obj)
         return finalVal
     }
@@ -63,4 +63,4 @@ const Table = (props) => {
     );
 }
 
-export default Table;
+export default React.memo(Table);

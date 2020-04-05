@@ -23,13 +23,13 @@ export default (state = {}, {type, payload}) => {
         case GET_MEMORY_DATA:
             return{
                 ...state,
-                memory: state.memory ? [...state.memory, payload] : [payload],
+                memory: payload,
                 machineData: mergeIntoData(state.machineData, payload, 'memory')
             };
         case GET_CPU_DATA:
             return{
                 ...state,
-                cpu: state.cpu ? [...state.cpu, payload] : [payload],
+                cpu: payload,
                 machineData: mergeIntoData(state.machineData, payload, 'cpu')
             }
         case SET_CURRENT_PAGE:
